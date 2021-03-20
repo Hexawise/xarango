@@ -15,7 +15,7 @@ defmodule Xarango.Vertex do
   def vertex(vertex, collection, graph, database\\nil) do
     url = case vertex do
       %{_id: id} -> id
-      %{_key: key} -> "#{collection.collection}/#{key}"
+      %{_key: key} -> "#{collection}/#{key}"
       _ -> raise Xarango.Error, message: "Vertex not specified"
     end
     url("#{graph.name}/vertex/#{url}", database)
@@ -32,25 +32,25 @@ defmodule Xarango.Vertex do
   end
 
   def create(vertex, collection, graph, database\\nil) do
-    url("#{graph.name}/vertex/#{collection.collection}", database)
-    |> post(vertex._data)
+    url("#{graph.name}/vertex/#{collection}", database)
+    |> post(vertex)
     |> to_vertex
   end
 
   def update(vertex, collection, graph, database\\nil) do
-    url("#{graph.name}/vertex/#{collection.collection}/#{vertex._key}", database)
+    url("#{graph.name}/vertex/#{collection}/#{vertex._key}", database)
     |> patch(vertex._data)
     |> to_vertex
   end
 
   def replace(vertex, collection, graph, database\\nil) do
-    url("#{graph.name}/vertex/#{collection.collection}/#{vertex._key}", database)
+    url("#{graph.name}/vertex/#{collection}/#{vertex._key}", database)
     |> put(vertex._data)
     |> to_vertex
   end
 
   def destroy(vertex, collection, graph, database\\nil) do
-    url("#{graph.name}/vertex/#{collection.collection}/#{vertex._key}", database)
+    url("#{graph.name}/vertex/#{collection}/#{vertex._key}", database)
     |> delete
   end
 
