@@ -14,8 +14,8 @@ defmodule Xarango.Vertex do
 
   def vertex(vertex, collection, graph, database\\nil) do
     url = case vertex do
-      %{_id: id} -> id
-      %{_key: key} -> "#{collection}/#{key}"
+      %{_id: id} when id != nil -> id
+      %{_key: key} when key != nil -> "#{collection}/#{key}"
       _ -> raise Xarango.Error, message: "Vertex not specified"
     end
     url("#{graph.name}/vertex/#{url}", database)
