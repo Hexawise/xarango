@@ -21,8 +21,8 @@ defmodule Xarango.Edge do
 
   def edge(edge, collection, graph, database\\nil) do
     url = case edge do
-      %{_id: id} -> id
-      %{_key: key} -> "#{collection}/#{key}"
+      %{_id: id} when id != nil -> id
+      %{_key: key} when key != nil -> "#{collection}/#{key}"
       _ -> raise Xarango.Error, message: "Edge not specified"
     end
     url("#{graph.name}/edge/#{url}", database)
