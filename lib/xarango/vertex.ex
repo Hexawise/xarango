@@ -33,7 +33,7 @@ defmodule Xarango.Vertex do
 
   def create(vertex, collection, graph, database\\nil) do
     url("#{graph.name}/vertex/#{collection}", database)
-    |> post(vertex)
+    |> post(vertex._data)
     |> to_vertex
   end
 
