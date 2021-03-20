@@ -22,7 +22,7 @@ defmodule Xarango.Edge do
   def edge(edge, collection, graph, database\\nil) do
     url = case edge do
       %{_id: id} -> id
-      %{_key: key} -> "#{collection.collection}/#{key}"
+      %{_key: key} -> "#{collection}/#{key}"
       _ -> raise Xarango.Error, message: "Edge not specified"
     end
     url("#{graph.name}/edge/#{url}", database)
@@ -31,26 +31,34 @@ defmodule Xarango.Edge do
   end
 
   def create(edge, collection, graph, database\\nil) do
-    url("#{graph.name}/edge/#{collection.collection}", database)
+    url("#{graph.name}/edge/#{collection}", database)
     |> post(edge)
     |> to_edge
   end
 
   def update(edge, collection, graph, database\\nil) do
-    url("#{graph.name}/edge/#{collection.collection}/#{edge._key}", database)
+    url("#{graph.name}/edge/#{collection}/#{edge._key}", database)
     |> patch(edge._data)
     |> to_edge
   end
 
   def replace(edge, collection, graph, database\\nil) do
-    url("#{graph.name}/edge/#{collection.collection}/#{edge._key}", database)
+    url("#{graph.name}/edge/#{collection}/#{edge._key}", database)
     |> put(Map.take(edge, [:_to, :_from, :_data]))
     |> to_edge
   end
 
   def destroy(edge, collection, graph, database\\nil) do
-    url("#{graph.name}/edge/#{collection.collection}/#{edge._key}", database)
+    url("#{graph.name}/edge/#{collection}/#{edge._key}", database)
     |> delete
+  end
+
+  def ensure(edge, collection, graph, database\\nil) do
+    try do
+      edge(edge, collection, graph, database)
+    rescue
+      Xarango.Error -> create(edge, collection, graph, database)
+    end
   end
 
   def to_edge(edges) when is_list(edges) do
