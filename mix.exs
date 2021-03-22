@@ -38,7 +38,6 @@ defmodule Xarango.Mixfile do
     [
       {:httpoison, "> 0.0.0"},
       {:jason, "~> 1.2"},
-      {:poison, "> 0.0.0"},
       {:faker, "> 0.0.0", only: :test},
       {:ex_doc, "> 0.0.0", only: :dev}
     ]
