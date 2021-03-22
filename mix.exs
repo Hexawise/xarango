@@ -15,7 +15,7 @@ defmodule Xarango.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :httpoison]]
+    [applications: [:logger, :httpoison, :jason]]
   end
 
   defp description do
