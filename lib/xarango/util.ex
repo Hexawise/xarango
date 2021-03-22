@@ -17,9 +17,9 @@ defmodule Xarango.Util do
   def do_decode(response) do
     case response do
       %HTTPoison.Response{status_code: status_code, body: body} when status_code >= 200 and status_code < 300 ->
-        {:ok, Poison.decode!(body, keys: :atoms)}
+        {:ok, Jason.decode!(body, keys: :atoms)}
       %HTTPoison.Response{body: body} ->
-        {:error, Poison.decode!(body, keys: :atoms)}
+        {:error, Jason.decode!(body, keys: :atoms)}
       %HTTPoison.Error{reason: reason} -> do_error reason
     end
   end
