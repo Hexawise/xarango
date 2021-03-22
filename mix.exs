@@ -15,7 +15,7 @@ defmodule Xarango.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :httpoison, :poison]]
+    [applications: [:logger, :httpoison]]
   end
 
   defp description do
@@ -37,6 +37,7 @@ defmodule Xarango.Mixfile do
   defp deps do
     [
       {:httpoison, "> 0.0.0"},
+      {:jason, "~> 1.2"},
       {:poison, "> 0.0.0"},
       {:faker, "> 0.0.0", only: :test},
       {:ex_doc, "> 0.0.0", only: :dev}

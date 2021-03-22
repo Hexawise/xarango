@@ -83,12 +83,12 @@ defmodule Xarango.Util do
   def to_json(items) when is_list(items) do
     items
     |> Enum.map(&to_resource(&1))
-    |> Poison.encode!
+    |> Jason.encode!
   end
 
   def to_json(item) do
     to_resource(item)
-    |> Poison.encode!
+    |> Jason.encode!
   end
 
   def to_resource(resource, options\\[])

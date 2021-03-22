@@ -42,14 +42,14 @@ defmodule Xarango.Client do
   defp do_request(method, url, body) when is_list(body) do
     body = body
       |> Enum.map(&Util.do_encode(&1))
-      |> Poison.encode!
+      |> Jason.encode!
     do_request(method, url, body)
   end
 
   defp do_request(method, url, body) when is_map(body) do
     body = body
       |> Util.do_encode
-      |> Poison.encode!
+      |> Jason.encode!
     do_request(method, url, body)
   end
 
