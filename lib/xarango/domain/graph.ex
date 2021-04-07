@@ -29,7 +29,7 @@ defmodule Xarango.Domain.Graph do
         Enum.each(_relationships(), &ensure_collections(&1, _graph(), _database()))
         struct(__MODULE__, graph: Graph.graph(_graph(), _database()))
       end
-      def destroy, do: Graph.destroy(_graph().graph, _database())
+      def destroy, do: Graph.destroy(_graph(), _database())
       def add(from, relationship, to, data\\nil), do: add(from, relationship, to, data, _graph(), _database())
       def ensure(from, relationship, to, data\\nil), do: ensure(from, relationship, to, data, _graph(), _database())
       def remove(from, relationship, to), do: remove(from, relationship, to, _graph(), _database())
