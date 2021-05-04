@@ -25,7 +25,7 @@ defmodule Xarango.Vertex do
 
   def edges(vertex, edge_collection, options\\[], database\\nil) do
     options = Keyword.merge(options, [vertex: vertex._id])
-    Xarango.Client._url(Xarango.URI.path("edges/#{edge_collection.collection}", database), options)
+    Xarango.Client._url(Xarango.URI.path("edges/#{edge_collection}", database), options)
     |> get
     |> Map.get(:edges)
     |> Enum.map(&Xarango.Edge.to_edge(&1))
